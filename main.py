@@ -7,14 +7,13 @@ class Rds():
         self.msg = "Initializing"
         self.init()
         self.schedule = dict()
-        self.charging_time = 60
+        self.charging_time = 6
         self.number_of_relays = 9
 
     def run(self):
         while(1):
             try:
                 self.main()
-                time.sleep(1)
             except Exception as e:
                 print(e)
 
@@ -28,10 +27,15 @@ class Rds():
         while 1:
             if (int(time.time()) - start) % self.charging_time == 0:
                 print("{} - {}".format(counter, int(time.time())))
+                self.set_relay(counter)
                 time.sleep(1)
                 counter += 1
                 if counter == self.number_of_relays:
                     break
+
+    def set_relay(self, relay):
+        print("clear all")
+        print("set {}".format(relay))
 
     def write(self, key, data):
         self.rds.set(key, data)
