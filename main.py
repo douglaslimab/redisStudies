@@ -3,6 +3,7 @@ import redis
 
 class Rds():
     def __init__(self):
+        self.rds = redis.StrictRedis(host="localhost", port=6379, db=0, decode_responses=True)
         self.msg = "Initializing"
         self.init()
 
@@ -19,6 +20,12 @@ class Rds():
 
     def main(self):
         print("Main block running..")
+
+    def write(self, key, data):
+        self.rds.set(key, data)
+
+    def read(self, key):
+        return self.rds.get(key)
 
 if __name__ == '__main__':
     data = Rds()
