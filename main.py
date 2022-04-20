@@ -7,6 +7,8 @@ class Rds():
         self.msg = "Initializing"
         self.init()
         self.schedule = dict()
+        self.charging_time = 60
+        self.number_of_relays = 9
 
     def run(self):
         while(1):
@@ -22,15 +24,13 @@ class Rds():
     def main(self):
         start = int(time.time())
         print("Initial time: {}".format(time.time()))
-        for i in range(9):
-            self.schedule[i] = start + i*5
         counter = 0
         while 1:
-            if (int(time.time()) - start) % 10 == 0:
+            if (int(time.time()) - start) % self.charging_time == 0:
                 print("{} - {}".format(counter, int(time.time())))
                 time.sleep(1)
                 counter += 1
-                if counter == 9:
+                if counter == self.number_of_relays:
                     break
 
     def write(self, key, data):
