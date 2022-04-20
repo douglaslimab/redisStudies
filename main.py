@@ -7,8 +7,8 @@ class Rds():
         self.msg = "Initializing"
         self.init()
         self.schedule = dict()
-        self.charging_time = 6
-        self.number_of_relays = 9
+        self.charging_time = 6      # time spent to charge each module
+        self.number_of_relays = 9   # number of relays queued
 
     def run(self):
         while(1):
@@ -24,7 +24,7 @@ class Rds():
         start = int(time.time())
         print("Initial time: {}".format(time.time()))
         counter = 0
-        while 1:
+        while 1:        # add button reading state
             if (int(time.time()) - start) % self.charging_time == 0:
                 print("{} - {}".format(counter, int(time.time())))
                 self.set_relay(counter)
